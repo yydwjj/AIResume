@@ -7,51 +7,62 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>AI智能简历分析系统</h1>
-            <p class="subtitle">基于DeepSeek AI的智能简历筛选与匹配平台</p>
-        </header>
+<div class="container">
+    <header>
+        <h1>AI智能简历分析系统</h1>
+        <p class="subtitle">基于DeepSeek AI的智能简历筛选与匹配平台</p>
+    </header>
 
-        <main>
-            <section class="card" id="resume-section">
-                <h2>简历上传</h2>
-                <div class="upload-area" id="upload-area">
-                    <input type="file" id="resume-file" accept=".pdf" hidden>
-                    <div class="upload-placeholder">
-                        <span class="icon">📄</span>
-                        <p>点击或拖拽PDF文件到此处上传</p>
-                        <p class="hint">仅支持文本型PDF，最大10MB</p>
+    <div class="main-layout">
+        <div class="top-row">
+            <div class="left-panel">
+                <section class="card" id="resume-section">
+                    <h2>简历上传</h2>
+                    <div class="upload-area" id="upload-area">
+                        <input type="file" id="resume-file" accept=".pdf" hidden>
+                        <div class="upload-placeholder">
+                            <span class="icon">📄</span>
+                            <p>点击或拖拽PDF文件到此处上传</p>
+                            <p class="hint">仅支持文本型PDF，最大10MB</p>
+                        </div>
                     </div>
-                </div>
-                <div class="progress-area" id="resume-progress" style="display: none;">
-                    <p class="status-text">正在解析中...</p>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="resume-progress-bar"></div>
+                    <div class="progress-area" id="resume-progress" style="display: none;">
+                        <p class="status-text" id="resume-status-text">正在解析中...</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="resume-progress-bar"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="result-area" id="resume-result" style="display: none;">
-                    <h3>解析结果</h3>
-                    <div class="result-content" id="resume-result-content"></div>
-                </div>
-            </section>
+                    <div class="result-area" id="resume-result" style="display: none;">
+                        <h3>解析结果</h3>
+                        <div class="resume-summary" id="resume-summary" style="display: none;">
+                            <div class="summary-content" id="resume-summary-content"></div>
+                            <div class="expand-hint">点击展开/收起详细信息</div>
+                        </div>
+                        <div class="result-content" id="resume-result-content"></div>
+                    </div>
+                </section>
+            </div>
 
-            <section class="card" id="job-section">
-                <h2>岗位需求</h2>
-                <div class="form-group">
-                    <label for="job-description">岗位描述</label>
-                    <textarea id="job-description" rows="8" placeholder="请输入岗位需求描述..."></textarea>
-                </div>
-                <button class="btn primary" id="parse-job-btn">解析岗位</button>
-                <div class="progress-area" id="job-progress" style="display: none;">
-                    <p class="status-text">正在解析中...</p>
-                </div>
-                <div class="result-area" id="job-result" style="display: none;">
-                    <h3>解析结果</h3>
-                    <div class="result-content" id="job-result-content"></div>
-                </div>
-            </section>
+            <div class="right-panel">
+                <section class="card" id="job-section">
+                    <h2>岗位需求</h2>
+                    <div class="form-group">
+                        <label for="job-description">岗位描述</label>
+                        <textarea id="job-description" rows="8" placeholder="请输入岗位需求描述..."></textarea>
+                    </div>
+                    <button class="btn primary" id="parse-job-btn">解析岗位</button>
+                    <div class="progress-area" id="job-progress" style="display: none;">
+                        <p class="status-text">正在解析中...</p>
+                    </div>
+                    <div class="result-area" id="job-result" style="display: none;">
+                        <h3>解析结果</h3>
+                        <div class="result-content" id="job-result-content"></div>
+                    </div>
+                </section>
+            </div>
+        </div>
 
+        <div class="match-row">
             <section class="card" id="match-section">
                 <h2>匹配分析</h2>
                 <div class="form-row">
@@ -78,13 +89,15 @@
                 </div>
                 <button class="btn primary" id="start-match-btn">开始匹配</button>
                 <div class="progress-area" id="match-progress" style="display: none;">
-                    <p class="status-text">正在匹配中...</p>
+                    <p class="status-text" id="match-status-text">正在匹配中...</p>
                     <div class="progress-bar">
                         <div class="progress-fill" id="match-progress-bar"></div>
                     </div>
                 </div>
             </section>
+        </div>
 
+        <div class="result-row">
             <section class="card" id="result-section" style="display: none;">
                 <h2>匹配结果</h2>
                 <div class="score-display">
@@ -105,17 +118,18 @@
                     <div class="result-content" id="semantic-result-content"></div>
                 </div>
             </section>
-        </main>
-
-        <footer>
-            <p>© 2026 AI智能简历分析系统 | Powered by DeepSeek AI</p>
-        </footer>
+        </div>
     </div>
 
-    <script src="js/api.js"></script>
-    <script src="js/resume.js"></script>
-    <script src="js/job.js"></script>
-    <script src="js/match.js"></script>
-    <script src="js/app.js"></script>
+    <footer>
+        <p>© 2024 AI智能简历分析系统 | Powered by DeepSeek AI</p>
+    </footer>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/resume.js"></script>
+<script src="js/job.js"></script>
+<script src="js/match.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
