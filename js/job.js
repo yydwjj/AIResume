@@ -1,46 +1,46 @@
 const JobModule = {
     jobList: [],
     currentJob: null,
-    
+
     init() {
         this.setupParseButton();
         this.loadJobList();
     },
-    
+
     setupParseButton() {
         const parseBtn = document.getElementById('parse-job-btn');
-        
+
         parseBtn.addEventListener('click', () => this.handleParseJob());
     },
-    
+
     async handleParseJob() {
         const jobDescription = document.getElementById('job-description').value.trim();
-        
+
         if (!jobDescription) {
             showError('请输入岗位描述');
             return;
         }
-        
+
         const progressArea = document.getElementById('job-progress');
         const resultArea = document.getElementById('job-result');
         const parseBtn = document.getElementById('parse-job-btn');
-        
+
         parseBtn.disabled = true;
         progressArea.style.display = 'block';
         resultArea.style.display = 'none';
-        
+
         try {
             const response = await API.parseJob(jobDescription);
-            
+
             if (response.success) {
                 this.currentJob = response.data;
                 this.displayJobResult(response.data);
-                
+
                 await this.loadJobList();
-                
+
                 const jobSelect = document.getElementById('job-select');
                 jobSelect.value = response.data.job_hash;
-                
+
                 showSuccess('岗位解析完成');
             } else {
                 throw new Error(response.error || '解析失败');
@@ -52,11 +52,11 @@ const JobModule = {
             progressArea.style.display = 'none';
         }
     },
-    
+
     async loadJobList() {
         try {
             const response = await API.getJobList();
-            
+
             if (response.success) {
                 this.jobList = response.data.jobs || [];
                 this.updateJobSelect();
@@ -65,24 +65,33 @@ const JobModule = {
             console.error('加载岗位列表失败:', error);
         }
     },
-    
+
     updateJobSelect() {
         const select = document.getElementById('job-select');
-        
+
         select.innerHTML = '<option value="">请选择岗位</option>';
-        
+
         this.jobList.forEach(job => {
             const option = document.createElement('option');
             option.value = job.hash;
-            option.textContent = job.title || `岗位 ${job.hash.substring(0, 8)}`;
+
+            if (job.title && job.title.includes('_')) {
+                const parts = job.title.split('_');
+                const title = parts[0];
+                const timestamp = parts.slice(1).join('_');
+                option.textContent = `${title} (${timestamp})`;
+            } else {
+                option.textContent = job.title || `岗位 ${job.hash.substring(0, 8)}`;
+            }
+
             select.appendChild(option);
         });
     },
-    
+
     async loadJob(hash) {
         try {
             const response = await API.getJob(hash);
-            
+
             if (response.success) {
                 this.currentJob = response.data;
                 this.displayJobResult(response.data);
@@ -92,17 +101,17 @@ const JobModule = {
             console.error('加载岗位失败:', error);
         }
     },
-    
+
     displayJobResult(data) {
         const resultArea = document.getElementById('job-result');
         const resultContent = document.getElementById('job-result-content');
-        
+
         let html = '';
-        
+
         if (data.job_title) {
             html += `<div class="info-item"><span class="label">岗位名称:</span><span class="value">${data.job_title}</span></div>`;
         }
-        
+
         if (data.experience_years) {
             const exp = data.experience_years;
             let expText = '';
@@ -115,11 +124,11 @@ const JobModule = {
                 html += `<div class="info-item"><span class="label">经验要求:</span><span class="value">${expText}</span></div>`;
             }
         }
-        
+
         if (data.education_level && data.education_level.required) {
             html += `<div class="info-item"><span class="label">学历要求:</span><span class="value">${data.education_level.required}</span></div>`;
         }
-        
+
         if (data.required_skills && data.required_skills.length > 0) {
             html += '<div class="info-section">';
             html += '<h4>技能要求</h4>';
@@ -130,7 +139,7 @@ const JobModule = {
             });
             html += '</div></div>';
         }
-        
+
         if (data.responsibilities && data.responsibilities.length > 0) {
             html += '<div class="info-section">';
             html += '<h4>岗位职责</h4>';
@@ -140,7 +149,7 @@ const JobModule = {
             });
             html += '</ul></div>';
         }
-        
+
         resultContent.innerHTML = html;
         resultArea.style.display = 'block';
     }
