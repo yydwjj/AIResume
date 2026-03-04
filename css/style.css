@@ -61,6 +61,7 @@ header .subtitle {
 .result-row {
     display: flex;
     gap: 20px;
+    justify-content: center;
 }
 
 .left-panel {
