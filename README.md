@@ -12,12 +12,9 @@ AIResume/
 │   ├── data/               # 数据文件
 │   ├── config/             # 配置模块
 │   └── tests/              # 测试
-├── frontend/               # 前端代码
-│   ├── index.html
-│   ├── css/
-│   └── js/
-├── docs/                   # 文档
-├── scripts/                # 脚本
+├── index.html              # 前端代码
+├── css/
+├── js/
 ├── config.example.yaml     # 配置文件示例
 └── README.md
 ```
