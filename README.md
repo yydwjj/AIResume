@@ -2,6 +2,26 @@
 
 > 本项目是基于 DeepSeek 开发的 AI 简历分析匹配平台
 
+
+```
+AIResume/
+├── backend/                # 后端代码
+│   ├── functions/          # 函数计算入口
+│   ├── core/               # 核心业务逻辑
+│   ├── utils/              # 工具模块
+│   ├── data/               # 数据文件
+│   ├── config/             # 配置模块
+│   └── tests/              # 测试
+├── frontend/               # 前端代码
+│   ├── index.html
+│   ├── css/
+│   └── js/
+├── docs/                   # 文档
+├── scripts/                # 脚本
+├── config.example.yaml     # 配置文件示例
+└── README.md
+```
+
 ## 目录
 
 - [使用说明](#使用说明)
@@ -40,16 +60,16 @@
 1. 访问 https://yydwjj.github.io/AIResume/ 进入简历分析系统首页
 
 2. 点击或者拖拽上传简历进行解析
-   ![img.png](img.png)
+   ![img.png](image/img.png)
 3. 将岗位描述复制进此区域，点击解析岗位进行解析
-   ![img_1.png](img_1.png)
+   ![img_1.png](image/img_1.png)
 4. 解析完成后，结果如下
-   ![img_2.png](img_2.png)
+   ![img_2.png](image/img_2.png)
 5. 在下方选择求职者以及岗位，并选择处理方式即可开始匹配
-   ![img_3.png](img_3.png)
+   ![img_3.png](image/img_3.png)
 6. 匹配结果
-   ![img_4.png](img_4.png)
-   ![img_5.png](img_5.png)
+   ![img_4.png](image/img_4.png)
+   ![img_5.png](image/img_5.png)
 # 项目架构
 
 ## 整体架构
