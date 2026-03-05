@@ -1,0 +1,8 @@
+pypdf==6.7.5
+redis==5.0.1
+oss2==2.18.4
+pyyaml==6.0.1
+openai>=1.0.0,<2.0.0
+python-multipart==0.0.9
+flask==3.0.0
+flask-cors==4.0.0
